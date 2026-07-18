@@ -55,17 +55,25 @@ function flatten(list) {
     return out;
 }
 
+function normalizeForMatch(value, lang) {
+    const normalized = String(value)
+        .normalize('NFKC')
+        .replace(/[‘’]/g, "'")
+        .replace(/[“”]/g, '"');
+    return lang === 'ja' ? normalized.toLowerCase() : normalized;
+}
+
 function judge(testCase, output) {
-    const haystack = testCase.lang === 'ja' ? output.toLowerCase() : output;
+    const haystack = normalizeForMatch(output, testCase.lang);
     const missing = [];
     (testCase.mustInclude || []).forEach((item) => {
         const candidates = Array.isArray(item) ? item : [item];
-        if (!candidates.some((c) => haystack.includes(testCase.lang === 'ja' ? c.toLowerCase() : c))) {
+        if (!candidates.some((c) => haystack.includes(normalizeForMatch(c, testCase.lang)))) {
             missing.push(candidates.join(' | '));
         }
     });
     const forbidden = flatten(testCase.mustNotInclude).filter((c) =>
-        haystack.includes(testCase.lang === 'ja' ? c.toLowerCase() : c)
+        haystack.includes(normalizeForMatch(c, testCase.lang))
     );
     return { pass: missing.length === 0 && forbidden.length === 0, missing, forbidden };
 }
@@ -79,7 +87,7 @@ async function translate(testCase, apiKey, model) {
     const target = testCase.lang === 'ja' ? '英語' : '日本語';
     // 順送り訳β: 文脈付きチャンク翻訳（app.js buildMonotonicUserContent と同形式）
     const userContent = testCase.context
-        ? `直前の発話（文脈。翻訳しないこと）:\n原文: ${testCase.context.source}\n訳文: ${testCase.context.translation}\n\n以下の${label}テキストは発話の続きである。上の文脈に自然につながる${target}訳のみを出力してください:\n\n${testCase.source}`
+        ? `直前の発話（文脈。翻訳しないこと）:\n原文: ${testCase.context.source}\n訳文: ${testCase.context.translation}\n\n上の文脈に代名詞・省略主語の参照先がある場合は、対象人物を訳文内で必ず明示し、代名詞だけまたは主語省略にしないこと。\n\n以下の${label}テキストは発話の続きである。上の文脈に自然につながる${target}訳のみを出力してください:\n\n${testCase.source}`
         : `以下の${label}テキストを${target}に翻訳してください:\n\n${testCase.source}`;
     const response = await fetch(ENDPOINT, {
         method: 'POST',
