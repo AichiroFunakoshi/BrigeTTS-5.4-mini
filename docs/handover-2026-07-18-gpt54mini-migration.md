@@ -9,7 +9,7 @@
 - 作業フォルダ: `/Users/inaminetetsuo/Documents/BrigeTTS(5.4-mini)`
 - main基準コミット: 元リポジトリmain（`3f290fd`）の内容を独立Gitへコピー
 - 作業ブランチ: `codex/gpt-5-4-mini`
-- 新規GitHub予定: `AichiroFunakoshi/BrigeTTS-5.4-mini`
+- 新規GitHub: `AichiroFunakoshi/BrigeTTS-5.4-mini`（作成・push済み）
 - 元リポジトリへremoteやpush先を設定しないこと
 
 ## 変更した固定値
@@ -32,6 +32,5 @@ Chat CompletionsとSSEストリーミングを維持し、`reasoning_effort: non
 
 1. ローカル構文、dry-run、Playwright、配布識別情報テストを完走する。
 2. `OPENAI_API_KEY` が利用可能なら通常評価と石畳評価を実APIで実行する。
-3. GitHub CLIを再認証し、新規リポジトリを作成してmain基準コミットと作業ブランチをpushする。
-4. PRを作成し、CIとCodeRabbitレビューを待つ。ユーザーの「確認して」指示まではマージしない。
-5. リリース指示後にのみタグをpushし、生成IPAのInfo.plistを実検査する。
+3. PRを作成し、CIとCodeRabbitレビューを待つ。ユーザーの「確認して」指示まではマージしない。
+4. リリース指示後にのみタグをpushし、生成IPAのInfo.plistを実検査する。

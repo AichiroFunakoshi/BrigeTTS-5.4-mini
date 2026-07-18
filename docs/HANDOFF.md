@@ -9,7 +9,7 @@
 
 - **最終更新**: 2026-07-18（GPT-5.4 mini独立版の作成・移行）
 - **独立版の位置づけ**: 元の `AichiroFunakoshi/Bridge-TTS-Codex-` は変更せず、内容コピーから `AichiroFunakoshi/BrigeTTS-5.4-mini` を新設する。ローカル作業フォルダは `/Users/inaminetetsuo/Documents/BrigeTTS(5.4-mini)`。
-- **作業ブランチ**: `codex/gpt-5-4-mini`。モデルは固定スナップショット `gpt-5.4-mini-2026-03-17`、予定版数は2.9.4。GitHub認証・新規リポジトリ作成・push・PRは未完了。
+- **作業ブランチ**: `codex/gpt-5-4-mini`。モデルは固定スナップショット `gpt-5.4-mini-2026-03-17`、予定版数は2.9.4。新規GitHubリポジトリ作成とmain・作業ブランチのpushは完了。PRレビュー待ち。
 - **独立配布ID**: Bundle ID=`com.a16.bridgetts.gpt54mini`、Source ID=`com.a16.bridgetts.gpt54mini.source`、Product=`BridgeTTS54Mini`、IPA=`BridgeTTS-5.4-mini-unsigned.ipa`。
 - **最新の申し送り**: [docs/handover-2026-07-18-gpt54mini-migration.md](handover-2026-07-18-gpt54mini-migration.md)
 - **リポジトリ棚卸し（2026-07-14）**: ①マージ済みPR由来のリモートブランチ37本を全削除（remoteは`main`のみ。全てマージ済みPRとの対応を照合済み）②ログ系Issueを集約: レイテンシ報告#68/#69/#70は要点コメント（訳出開始 中央値703-726ms・確定798-825ms＝ゲート通過）を残してクローズ、TTSエラー#78は#67へ集約しクローズ（**v2.9.2の頭切れ対策後も canceled が再発**した点を#67のコメントに記録。追跡は#67で継続）③READMEをv2.9.3の現状に更新（順送り＝石畳方式が既定・翻訳モード・ユーザー辞書・設定エクスポート・API使用量表示・異常終了検出・日本語読み上げ音声選択・設計文書リンク）
