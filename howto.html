@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>使い方 - BridgeTTS</title>
+
+    <!-- iOSホーム画面アプリとしての設定 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100dvh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a73e8, #4CAF50);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #1a73e8;
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section h2::before {
+            content: attr(data-icon);
+            font-size: 20px;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step;
+        }
+
+        .step-list li {
+            counter-increment: step;
+            padding: 12px 12px 12px 50px;
+            position: relative;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .step-list li::before {
+            content: counter(step);
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            background: #1a73e8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .feature-box {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+
+        .feature-box h3 {
+            color: #1565c0;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: #e65100;
+        }
+
+        .tip-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip-box p {
+            font-size: 13px;
+            color: #2e7d32;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 20px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            margin: 20px;
+            transition: background 0.2s;
+        }
+
+        .back-link:hover {
+            background: #bbdefb;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f5f5f5;
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .section h2 {
+                font-size: 16px;
+            }
+
+            .step-list li {
+                padding: 10px 10px 10px 45px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>BridgeTTS 使い方ガイド</h1>
+            <p>日本語と英語のリアルタイム音声翻訳アプリ</p>
+        </div>
+
+        <a href="index.html" class="back-link">← アプリに戻る</a>
+
+        <div class="content">
+            <section class="section">
+                <h2 data-icon="🚀">はじめに</h2>
+                <p>このアプリは、日本語と英語の音声をリアルタイムで翻訳します。話した内容がテキスト化され、自動的に翻訳されます。</p>
+
+                <div class="warning-box">
+                    <p><strong>必要なもの:</strong> OpenAI APIキー（翻訳機能に必要）</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="📝">基本的な使い方</h2>
+                <ol class="step-list">
+                    <li>初回起動時にOpenAI APIキーを入力して「保存して開始」をタップ</li>
+                    <li>「開始」（日本語）または「Start」（英語）ボタンをタップ</li>
+                    <li>「録音中」と表示されたら、マイクに向かって話すと原文と翻訳が表示されます</li>
+                    <li>翻訳ボックスをタップすると、翻訳結果を音声で読み上げます（この時点で音声入力は自動的に終了します）</li>
+                    <li>次の入力は、再度「開始」/「Start」ボタンをタップ（途中でやめる場合は「停止」）</li>
+                </ol>
+
+                <div class="tip-box">
+                    <p><strong>ヒント:</strong> iOSでは、最初の録音開始時にマイクへのアクセス許可を求められます。「許可」をタップしてください。</p>
+                </div>
+
+                <div class="tip-box">
+                    <p><strong>ターン制について:</strong> 読み上げ（TTS）の実行は「1回の会話ターンの終了」として扱われ、音声入力は自動的に停止します。読み上げ直後にマイクを自動再開すると冒頭の音声が欠けやすいためで、日英交互の会話でも言語ボタンの押し直しで自然に切り替えられます。また、30秒間音声を検出しない場合は、電池消費と発熱を防ぐため音声入力を自動停止します。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="⚙️">設定項目</h2>
+
+                <div class="feature-box">
+                    <h3>音声読み上げ（TTS）</h3>
+                    <p>翻訳結果を音声で読み上げる機能のオン/オフを切り替えられます。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>停止後に自動読み上げ（会話モード）</h3>
+                    <p>音声入力を停止すると、最後の翻訳結果を自動で読み上げます。対面での会話でタップの手間を減らせます（初期設定はOFF）。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>読み上げ速度</h3>
+                    <p>音声読み上げのスピードを5段階（×0.8〜×1.2）で調整できます。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>文字サイズ</h3>
+                    <p>原文・翻訳テキストの文字サイズを小/中/大/特大から選べます。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>テーマ</h3>
+                    <p>「自動（端末設定に追従）/ ライト / ダーク」から外観を選べます。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="🕘">会話履歴</h2>
+                <p>翻訳が完了すると、原文と翻訳が会話履歴として端末に保存されます（最大20件）。ヘッダーの履歴ボタン（時計アイコン）をタップすると専用画面で確認できます。</p>
+                <ol class="step-list">
+                    <li>履歴の各エントリには翻訳方向（日→英 / 英→日）と時刻が表示されます</li>
+                    <li>「再生」ボタンで翻訳を音声で読み上げられます</li>
+                    <li>「コピー」ボタンで翻訳テキストをコピーできます</li>
+                    <li>「消去」ボタンで履歴をすべて削除できます</li>
+                </ol>
+                <div class="tip-box">
+                    <p><strong>ヒント:</strong> 履歴は端末内（localStorage）にのみ保存され、外部には送信されません。リセットボタン（オレンジ）を押しても履歴は保持されます。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="📲">iOSアプリ版（AltStore）</h2>
+                <p>このアプリはPWAとしてホーム画面に追加できるほか、iOSネイティブアプリとしてもインストールできます。</p>
+                <ol class="step-list">
+                    <li>GitHubリポジトリのActionsから未署名IPA（BridgeTTS-unsigned.ipa）をダウンロード</li>
+                    <li>IPAをiPhoneに転送（AirDrop / ファイルAppなど）</li>
+                    <li>AltStoreの「My Apps」→「＋」からIPAを選択してインストール</li>
+                    <li>初回起動時にマイクと音声認識の権限を許可</li>
+                </ol>
+                <div class="warning-box">
+                    <p><strong>注意:</strong> 無料のApple IDで署名したアプリは7日で期限切れになります。AltStoreで定期的にRefreshしてください。詳細はリポジトリ内の docs/IOS_APP.md を参照してください。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="🎯">デバウンス最適化</h2>
+                <p>「デバウンス」とは、発話が区切れたと判断して翻訳を開始するまでの待ち時間です。短すぎると話の途中で翻訳が乱発され、長すぎると反応が遅く感じます。この機能は、あなたの端末・話し方での音声認識の更新間隔（話している間にテキストが更新される周期）を学習し、最適な待ち時間を言語別に算出します。</p>
+
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>項目</th>
+                            <th>説明</th>
+                        </tr>
+                        <tr>
+                            <td>必要サンプル数</td>
+                            <td>言語ごとに30件（日英は独立。片方の言語だけでも最適化可能）</td>
+                        </tr>
+                        <tr>
+                            <td>データ収集</td>
+                            <td>通常の使用中（録音中の認識結果更新時）に自動で収集</td>
+                        </tr>
+                        <tr>
+                            <td>最適化アルゴリズム</td>
+                            <td>更新間隔の90パーセンタイル × 1.2（外れ値に強く、通常の更新を翻訳の区切りと誤判定しない値）</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3 style="margin: 20px 0 10px; font-size: 15px;">ボタンの説明</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>ボタン</th>
+                            <th>機能</th>
+                        </tr>
+                        <tr>
+                            <td><strong>最適化を実行</strong></td>
+                            <td>収集データから最適値を計算・適用<br>（サンプル数が足りると緑色に点滅）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>設定をリセット</strong></td>
+                            <td>デバウンス値をデフォルトに戻す<br>（収集データは保持）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>完全リセット</strong></td>
+                            <td>設定と収集データの両方を削除<br>（初期状態に戻す）</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="warning-box">
+                    <p><strong>注意:</strong> 最適化が気に入らない場合は「設定をリセット」でデフォルト値に戻せます。収集データは保持されるので、再度最適化を試すことができます。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="📱">画面レイアウト</h2>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>向き</th>
+                            <th>レイアウト</th>
+                        </tr>
+                        <tr>
+                            <td>縦画面（ポートレート）</td>
+                            <td>原文と翻訳が上下に配置</td>
+                        </tr>
+                        <tr>
+                            <td>横画面（ランドスケープ）</td>
+                            <td>原文と翻訳が左右に配置</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="🔧">トラブルシューティング</h2>
+
+                <div class="feature-box">
+                    <h3>音声認識が動作しない</h3>
+                    <p>ブラウザのマイク権限を確認してください。Safari/Chromeの設定からマイクへのアクセスを許可してください。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>翻訳されない</h3>
+                    <p>APIキーが正しく入力されているか確認してください。設定画面で再入力できます。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>音声読み上げが動作しない（iOS）</h3>
+                    <p>iOSでは、最初の「開始」ボタンタップ時にTTSが初期化されます。録音を開始してから翻訳ボックスをタップしてください。</p>
+                </div>
+
+                <div class="feature-box">
+                    <h3>エラーが発生した</h3>
+                    <p>画面右下に「⚠️ エラーを報告」ボタンが表示されます。iOSアプリ版では内容確認のうえGitHubのIssueとして直接送信され（アカウント不要）、ブラウザ版ではIssueの下書き画面が開きます。APIキー等の機密情報は自動でマスクされます。</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 data-icon="📊">デフォルトのデバウンス値</h2>
+                <p>科学的研究に基づいて設定された初期値です：</p>
+                <div class="table-wrapper">
+                    <table>
+                        <tr>
+                            <th>言語</th>
+                            <th>デバウンス値</th>
+                            <th>特徴</th>
+                        </tr>
+                        <tr>
+                            <td>日本語</td>
+                            <td>346ms</td>
+                            <td>文節区切りに対応</td>
+                        </tr>
+                        <tr>
+                            <td>英語</td>
+                            <td>154ms</td>
+                            <td>流暢な発話に追従</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            BridgeTTS © 2025 | Crafted by A_1_6
+        </div>
+    </div>
+</body>
+</html>

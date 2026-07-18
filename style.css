@@ -1,0 +1,2157 @@
+/* ============================================================
+   Bridge TTS - リアルタイム音声翻訳
+   デザイントークンベースのスタイルシート（ライト/ダーク対応）
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   デザイントークン
+   ------------------------------------------------------------ */
+:root {
+    /* 配色（ライト） */
+    --color-bg: #f2f4f8;
+    --color-surface: #ffffff;
+    --color-surface-alt: #f8f9fa;
+    --color-text: #202124;
+    --color-text-secondary: #5f6368;
+    --color-text-tertiary: #6b7280;
+    --color-border: #e3e6ea;
+    --color-border-strong: #d1d5db;
+
+    --color-primary: #1a73e8;
+    --color-primary-strong: #1557b0;
+    --color-primary-soft: #e8f0fe;
+    --color-primary-contrast: #ffffff;
+
+    --color-success: #4caf50;
+    --color-success-strong: #137333;
+    --color-success-soft: #e8f5e9;
+
+    --color-danger: #dc3545;
+    --color-danger-soft: #ffebee;
+
+    --color-warning: #ff9800;
+    --color-warning-soft: #fff8e1;
+    --color-warning-text: #8a4b00;
+
+    --color-japanese: #e74c3c;
+    --color-japanese-strong: #c0392b;
+    --color-english: #2ecc71;
+    --color-english-strong: #27ae60;
+    --color-reset: #f39c12;
+    --color-reset-strong: #d68910;
+
+    /* 表面効果 */
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+    --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.1);
+    --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.18);
+    --overlay: rgba(15, 17, 21, 0.5);
+
+    /* 角丸 */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+
+    color-scheme: light;
+}
+
+/* ダークテーマ（手動選択） */
+:root[data-theme="dark"] {
+    --color-bg: #0f1115;
+    --color-surface: #181b22;
+    --color-surface-alt: #21252e;
+    --color-text: #e8eaed;
+    --color-text-secondary: #b3b9c4;
+    --color-text-tertiary: #9aa1ad;
+    --color-border: #2c313b;
+    --color-border-strong: #3a404c;
+
+    --color-primary: #3d7ff0;
+    --color-primary-strong: #6ba0f5;
+    --color-primary-soft: #1c2940;
+    --color-primary-contrast: #ffffff;
+
+    --color-success: #5dbb63;
+    --color-success-strong: #8fd694;
+    --color-success-soft: #16281a;
+
+    --color-danger: #ef5e6c;
+    --color-danger-soft: #341c20;
+
+    --color-warning: #f0a13c;
+    --color-warning-soft: #2e2410;
+    --color-warning-text: #f0b35c;
+
+    --color-japanese: #d6453a;
+    --color-japanese-strong: #b53a30;
+    --color-english: #27ae60;
+    --color-english-strong: #1f8b4d;
+    --color-reset: #d68910;
+    --color-reset-strong: #b9770e;
+
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+    --overlay: rgba(0, 0, 0, 0.65);
+
+    color-scheme: dark;
+}
+
+/* ダークテーマ（システム追従: 「自動」または未設定時） */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --color-bg: #0f1115;
+        --color-surface: #181b22;
+        --color-surface-alt: #21252e;
+        --color-text: #e8eaed;
+        --color-text-secondary: #b3b9c4;
+        --color-text-tertiary: #9aa1ad;
+        --color-border: #2c313b;
+        --color-border-strong: #3a404c;
+
+        --color-primary: #3d7ff0;
+        --color-primary-strong: #6ba0f5;
+        --color-primary-soft: #1c2940;
+        --color-primary-contrast: #ffffff;
+
+        --color-success: #5dbb63;
+        --color-success-strong: #8fd694;
+        --color-success-soft: #16281a;
+
+        --color-danger: #ef5e6c;
+        --color-danger-soft: #341c20;
+
+        --color-warning: #f0a13c;
+        --color-warning-soft: #2e2410;
+        --color-warning-text: #f0b35c;
+
+        --color-japanese: #d6453a;
+        --color-japanese-strong: #b53a30;
+        --color-english: #27ae60;
+        --color-english-strong: #1f8b4d;
+        --color-reset: #d68910;
+        --color-reset-strong: #b9770e;
+
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+        --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+        --overlay: rgba(0, 0, 0, 0.65);
+
+        color-scheme: dark;
+    }
+}
+
+/* ------------------------------------------------------------
+   ベース
+   ------------------------------------------------------------ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh; /* iOS Safari対応 */
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    padding: 6px;
+    /* iOSノッチ/ホームバーのセーフエリア対応 */
+    padding-top: max(6px, env(safe-area-inset-top));
+    padding-bottom: max(6px, env(safe-area-inset-bottom));
+    padding-left: max(6px, env(safe-area-inset-left));
+    padding-right: max(6px, env(safe-area-inset-right));
+    touch-action: manipulation;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* モーダル表示時のbodyスクロールロック */
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 6px;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------------------------------
+   ヘッダー
+   ------------------------------------------------------------ */
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 6px 2px;
+}
+
+.app-header-text {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    min-width: 0;
+}
+
+.app-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.app-subtitle {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.settings-button {
+    flex: 0 0 auto;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.settings-button:hover {
+    background-color: var(--color-primary-soft);
+}
+
+.settings-button:active {
+    transform: scale(0.93);
+}
+
+/* ------------------------------------------------------------
+   コントロール（録音ボタン群・ステータス）
+   ------------------------------------------------------------ */
+.control-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 2px;
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    min-height: 48px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 560px;
+}
+
+.language-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 18px;
+    min-height: 48px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-primary);
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.04));
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.language-button:disabled {
+    background-color: var(--color-border-strong);
+    background-image: none;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.language-button.japanese {
+    background-color: var(--color-japanese);
+    flex: 1 1 140px;
+}
+
+.language-button.english {
+    background-color: var(--color-english);
+    flex: 1 1 140px;
+}
+
+.language-button.stop {
+    background-color: var(--color-danger);
+    display: none;
+    flex: 1 1 200px;
+}
+
+.language-button.reset {
+    background-color: var(--color-reset);
+    flex: 0 0 48px;
+    padding: 10px 12px;
+    font-size: 0;
+}
+
+.language-button.reset .language-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.language-button.stop.visible {
+    display: flex;
+}
+
+.language-button:active:not(:disabled) {
+    transform: scale(0.96);
+    filter: brightness(0.95);
+}
+
+.language-icon {
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 録音中: 停止ボタンを脈動させて状態を明示 */
+body.recording .language-button.stop {
+    animation: pulse-button 1.6s infinite;
+}
+
+@keyframes pulse-button {
+    0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.45); }
+    70% { box-shadow: 0 0 0 12px rgba(220, 53, 69, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+}
+
+.status {
+    font-size: 13px;
+    padding: 4px 14px;
+    background-color: var(--color-primary-soft);
+    border-radius: var(--radius-pill);
+    color: var(--color-primary);
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 0.02em;
+}
+
+.status.recording {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.status.idle {
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.status.processing {
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning-text);
+}
+
+.status.error {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.network-status {
+    display: none;
+    max-width: min(92vw, 680px);
+    padding: 7px 12px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning-text);
+    border: 1px solid var(--color-warning);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.network-status.visible {
+    display: block;
+}
+
+.error-message {
+    color: var(--color-danger);
+    font-style: italic;
+    font-size: 13px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+/* ------------------------------------------------------------
+   翻訳結果エリア
+   ------------------------------------------------------------ */
+.result-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 0;
+    flex: 1;
+    min-height: 0;
+}
+
+.result-box {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    width: 100%;
+    box-shadow: var(--shadow-sm);
+    min-height: 84px;
+    border-left: 4px solid var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    flex: 1;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.result-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+}
+
+.result-content {
+    font-size: 24px;
+    line-height: 1.55;
+    color: var(--color-text);
+    white-space: pre-wrap;
+    flex: 1;
+    overflow-wrap: anywhere;
+}
+
+.result-content.size-small { font-size: 20px; }
+.result-content.size-medium { font-size: 24px; }
+.result-content.size-large { font-size: 28px; }
+.result-content.size-xlarge { font-size: 32px; }
+
+.language-indicator {
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.language-indicator:empty {
+    display: none;
+}
+
+.copy-translation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 28px;
+    padding: 3px 10px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.copy-translation-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.copy-translation-btn:not(:disabled):active {
+    transform: scale(0.96);
+}
+
+.copy-translation-btn.copied {
+    border-color: var(--color-success);
+    background-color: var(--color-success-soft);
+    color: var(--color-success-strong);
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--color-primary-soft);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s linear infinite;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.translating-indicator {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: var(--color-warning-soft);
+    color: var(--color-warning);
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    display: none;
+}
+
+.translating-indicator.visible {
+    display: inline-block;
+}
+
+/* TTS再生中インジケータ */
+#speakingIndicator {
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+    animation: pulse-speaking 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-speaking {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
+}
+
+/* ------------------------------------------------------------
+   録音中・翻訳中の視覚的状態
+   ------------------------------------------------------------ */
+.result-box.recording {
+    border-left-color: var(--color-primary);
+    background-color: var(--color-primary-soft);
+    animation: recording-pulse 2s ease-in-out infinite;
+}
+
+@keyframes recording-pulse {
+    0%, 100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(26, 115, 232, 0.35); }
+    50% { box-shadow: var(--shadow-sm), 0 0 0 8px rgba(26, 115, 232, 0); }
+}
+
+.translation-box.translating {
+    border-left-color: var(--color-warning);
+    background-color: var(--color-warning-soft);
+    animation: translating-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes translating-pulse {
+    0%, 100% { box-shadow: var(--shadow-sm), 0 0 0 0 rgba(255, 152, 0, 0.35); }
+    50% { box-shadow: var(--shadow-sm), 0 0 0 6px rgba(255, 152, 0, 0); }
+}
+
+.translation-box.translation-complete {
+    border-left-color: var(--color-success);
+    background-color: var(--color-success-soft);
+    box-shadow: 0 2px 10px rgba(76, 175, 80, 0.18);
+}
+
+/* ------------------------------------------------------------
+   翻訳ボックス タップで再生
+   ------------------------------------------------------------ */
+.translation-box {
+    cursor: default;
+    border-left: 4px solid var(--color-success);
+}
+
+.translation-box.has-content {
+    cursor: pointer;
+}
+
+.translation-box.has-content:hover {
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.translation-box.has-content:active {
+    transform: scale(0.99);
+}
+
+.translation-box.tts-playing {
+    animation: tts-glow 1.5s ease-in-out infinite;
+    border-left-color: var(--color-english);
+}
+
+@keyframes tts-glow {
+    0%, 100% { box-shadow: var(--shadow-sm), 0 0 10px rgba(76, 175, 80, 0.3); }
+    50% { box-shadow: var(--shadow-sm), 0 0 20px rgba(76, 175, 80, 0.5); }
+}
+
+.tap-hint {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-success-soft);
+    color: var(--color-success);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.translation-box.has-content .tap-hint {
+    opacity: 1;
+}
+
+.translation-box.tts-playing .tap-hint {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+    font-size: 0;
+}
+
+.translation-box.tts-playing .tap-hint::after {
+    content: 'タップで停止';
+    font-size: 11px;
+}
+
+/* ------------------------------------------------------------
+   会話履歴
+   ------------------------------------------------------------ */
+.conversation-log {
+    width: 100%;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 10px 12px;
+    box-shadow: var(--shadow-sm);
+    max-height: 36dvh;
+    overflow-y: auto;
+}
+
+.conversation-log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    position: sticky;
+    top: -10px;
+    background-color: var(--color-surface);
+    padding: 4px 0;
+    z-index: 1;
+}
+
+.conversation-log-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+}
+
+.conversation-log-clear {
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    min-height: 28px;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+
+.conversation-log-clear:active {
+    background: var(--color-surface-alt);
+}
+
+.conversation-log-list {
+    display: grid;
+    gap: 10px;
+}
+
+.conversation-log-item {
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+}
+
+.conversation-log-item:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.conversation-log-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.conversation-log-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    font-weight: 600;
+}
+
+.conversation-log-direction {
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.conversation-log-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.conversation-log-replay,
+.conversation-log-copy {
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 700;
+    min-height: 28px;
+    padding: 4px 12px;
+    cursor: pointer;
+}
+
+.conversation-log-replay {
+    border-color: var(--color-primary);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.conversation-log-replay:active {
+    filter: brightness(0.93);
+}
+
+.conversation-log-copy:active {
+    background: var(--color-surface-alt);
+}
+
+.conversation-log-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.conversation-log-row + .conversation-log-row {
+    margin-top: 5px;
+}
+
+.conversation-log-label {
+    color: var(--color-text-tertiary);
+    font-weight: 700;
+}
+
+.conversation-log-text {
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------------
+   フッター
+   ------------------------------------------------------------ */
+.app-footer {
+    display: none; /* 画面最大化のため非表示（リンクは設定モーダル内に配置） */
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.footer-link:hover {
+    text-decoration: underline;
+}
+
+.reset-keys {
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+    text-align: center;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------
+   モーダル
+   ------------------------------------------------------------ */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* iOS スムーズスクロール */
+    overscroll-behavior: contain; /* スクロールチェーン防止 */
+    padding: 20px 0;
+}
+
+.modal-content {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: var(--shadow-lg);
+    animation: modal-in 0.3s ease-out;
+    margin: 20px auto;
+    flex-shrink: 0;
+}
+
+@keyframes modal-in {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-title svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.modal-description {
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tts-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    font-size: 16px;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+.form-help {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+.form-help a {
+    color: var(--color-primary);
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-row .language-button {
+    width: 100%;
+}
+
+/* ------------------------------------------------------------
+   テーマ切替コントロール
+   ------------------------------------------------------------ */
+.theme-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.theme-btn,
+.domain-btn,
+.strategy-btn,
+.backup-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-btn:hover,
+.domain-btn:hover,
+.strategy-btn:hover,
+.backup-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.theme-btn.active,
+.domain-btn.active,
+.strategy-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
+
+.theme-btn:focus-visible,
+.domain-btn:focus-visible,
+.strategy-btn:focus-visible,
+.backup-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   設定モーダル内フォントサイズコントロール
+   ------------------------------------------------------------ */
+.font-size-preview {
+    background-color: var(--color-surface-alt);
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-border);
+}
+
+.font-size-preview .preview-text {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: font-size 0.3s ease;
+}
+
+.font-size-controls-modal {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.font-size-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.font-size-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.font-size-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
+
+/* ------------------------------------------------------------
+   TTS速度コントロール
+   ------------------------------------------------------------ */
+.speed-controls {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.speed-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.speed-btn:hover {
+    border-color: var(--color-success);
+    color: var(--color-success);
+}
+
+.speed-btn.active {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: #ffffff;
+}
+
+.speed-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------
+   デバウンス最適化UI
+   ------------------------------------------------------------ */
+.debounce-optimizer {
+    background-color: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.debounce-status {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12px;
+}
+
+.debounce-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.debounce-label {
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+}
+
+.debounce-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.debounce-type {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+}
+
+.debounce-type.optimized {
+    color: var(--color-success);
+}
+
+.debounce-progress {
+    margin-bottom: 12px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--color-border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+}
+
+.debounce-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.debounce-btn {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, filter 0.2s ease;
+}
+
+.debounce-btn:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.debounce-btn.optimize {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.debounce-btn.optimize:hover:not(:disabled) {
+    filter: brightness(0.92);
+}
+
+.debounce-btn.optimize:disabled,
+.debounce-btn.optimize.disabled {
+    background-color: var(--color-border);
+    color: var(--color-text-tertiary);
+    cursor: not-allowed;
+}
+
+.debounce-btn.optimize.ready {
+    background-color: var(--color-success);
+    color: #ffffff;
+    animation: pulse-ready 2s infinite;
+}
+
+@keyframes pulse-ready {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(76, 175, 80, 0); }
+}
+
+.debounce-btn.reset {
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-strong);
+}
+
+.debounce-btn.reset:hover {
+    background-color: var(--color-surface-alt);
+}
+
+.debounce-btn.full-reset {
+    background-color: var(--color-danger-soft);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger);
+}
+
+.debounce-btn.full-reset:hover {
+    filter: brightness(0.96);
+}
+
+.debounce-optimized-at {
+    font-size: 11px;
+    color: var(--color-success);
+    text-align: center;
+    margin: 8px 0;
+    padding: 4px 8px;
+    background-color: var(--color-success-soft);
+    border-radius: 4px;
+}
+
+.remaining-info {
+    font-size: 12px;
+    color: var(--color-warning-text);
+    text-align: center;
+    margin: 8px 0;
+    padding: 6px 10px;
+    background-color: var(--color-warning-soft);
+    border-radius: 4px;
+}
+
+.remaining-info:empty {
+    display: none;
+}
+
+.remaining-info.ready {
+    color: var(--color-success);
+    background-color: var(--color-success-soft);
+}
+
+/* メイン画面の旧フォントサイズコントロールは廃止（設定モーダルに移動済み） */
+.font-size-controls {
+    display: none;
+}
+
+/* ------------------------------------------------------------
+   翻訳品質警告
+   ------------------------------------------------------------ */
+.translation-quality-warning {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    background-color: var(--color-warning-soft);
+    border: 2px solid var(--color-warning);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+    z-index: 100;
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.warning-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.warning-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.warning-text {
+    flex: 1;
+    font-size: 13px;
+    color: var(--color-warning-text);
+    font-weight: 500;
+    min-width: 150px;
+}
+
+.retry-translation-btn {
+    background-color: var(--color-warning);
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+    box-shadow: 0 2px 4px rgba(255, 149, 0, 0.3);
+}
+
+.retry-translation-btn:hover {
+    filter: brightness(0.92);
+}
+
+.close-warning-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-warning-text);
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-warning-btn:hover {
+    background: rgba(133, 100, 4, 0.1);
+}
+
+/* ------------------------------------------------------------
+   エラーレポートボタン / モーダル（error-reporter.jsが生成）
+   ------------------------------------------------------------ */
+.error-report-button {
+    position: fixed;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px 6px 14px;
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+    z-index: 10000;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: pulse 2s infinite;
+}
+
+.error-report-button:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+}
+
+.error-report-button-main {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 2px;
+}
+
+.error-report-button-dismiss {
+    background: rgba(255, 255, 255, 0.25);
+    border: none;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.error-report-button-dismiss:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4); }
+    50% { box-shadow: 0 4px 20px rgba(255, 107, 107, 0.7); }
+}
+
+.error-report-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    padding: 20px;
+}
+
+.error-report-content {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+}
+
+.error-report-content h2 {
+    margin: 0 0 15px 0;
+    color: var(--color-text);
+    font-size: 24px;
+}
+
+.error-report-content p {
+    margin: 0 0 15px 0;
+    color: var(--color-text-secondary);
+}
+
+.error-report-content textarea {
+    width: 100%;
+    height: 300px;
+    padding: 12px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    font-size: 12px;
+    resize: vertical;
+    background-color: var(--color-surface-alt);
+    color: var(--color-text);
+    margin-bottom: 20px;
+}
+
+.error-report-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.error-report-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+#copyReportBtn { background-color: #6c757d; color: white; }
+#copyReportBtn:hover { filter: brightness(0.92); }
+#sendReportBtn { background-color: #28a745; color: white; }
+#sendReportBtn:hover { filter: brightness(0.92); }
+#closeReportBtn { background-color: #dc3545; color: white; }
+#closeReportBtn:hover { filter: brightness(0.92); }
+
+/* ------------------------------------------------------------
+   レスポンシブ: 縦画面モバイル
+   ------------------------------------------------------------ */
+@media (max-width: 600px) {
+    body {
+        padding: 5px;
+        padding-top: max(5px, env(safe-area-inset-top));
+        padding-bottom: max(5px, env(safe-area-inset-bottom));
+        padding-left: max(5px, env(safe-area-inset-left));
+        padding-right: max(5px, env(safe-area-inset-right));
+    }
+
+    .container {
+        padding: 0;
+    }
+
+    .app-header {
+        padding: 2px 4px;
+    }
+
+    .app-title {
+        font-size: 16px;
+    }
+
+    .button-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+    }
+
+    .language-button {
+        justify-content: center;
+        padding: 8px 14px;
+        font-size: 14px;
+    }
+
+    .language-button.japanese,
+    .language-button.english {
+        flex-basis: calc((100% - 60px) / 2);
+    }
+
+    .language-button .language-icon {
+        width: 15px;
+        height: 15px;
+    }
+
+    .language-button.reset {
+        flex-basis: 48px;
+        padding: 8px 10px;
+    }
+
+    .result-container {
+        gap: 5px;
+    }
+
+    .result-box {
+        padding: 10px 12px;
+        min-height: 80px;
+    }
+
+    .result-content { font-size: 20px; }
+    .result-content.size-small { font-size: 16px; }
+    .result-content.size-medium { font-size: 20px; }
+    .result-content.size-large { font-size: 24px; }
+    .result-content.size-xlarge { font-size: 28px; }
+
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .font-size-controls-modal { gap: 6px; }
+    .font-size-btn { padding: 8px 10px; font-size: 13px; }
+    .theme-btn, .domain-btn, .strategy-btn, .backup-btn { padding: 8px 10px; font-size: 13px; }
+
+    .translation-box { padding: 10px 12px; }
+    .tap-hint { font-size: 10px; padding: 2px 6px; }
+
+    .translation-quality-warning {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        padding: 8px 10px;
+    }
+    .warning-text { font-size: 12px; min-width: 120px; }
+    .warning-icon { font-size: 16px; }
+    .retry-translation-btn { padding: 5px 10px; font-size: 11px; }
+    .close-warning-btn { font-size: 18px; }
+
+    .error-report-content { padding: 20px; }
+    .error-report-content textarea { height: 200px; font-size: 11px; }
+    .error-report-buttons { flex-direction: column; }
+    .error-report-buttons button { width: 100%; }
+    .error-report-button {
+        bottom: max(15px, env(safe-area-inset-bottom));
+        right: 15px;
+        padding: 5px 6px 5px 12px;
+    }
+    .error-report-button-main { font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+    .app-subtitle { display: none; }
+    .settings-button { width: 36px; height: 36px; }
+    .font-size-btn { padding: 6px 8px; font-size: 12px; }
+    .font-size-preview { padding: 12px; }
+    .language-button.reset { padding: 6px 10px; }
+    .language-button.reset .language-icon { width: 16px; height: 16px; }
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+    .language-button {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .language-button .language-icon {
+        width: 13px;
+        height: 13px;
+    }
+}
+
+/* ------------------------------------------------------------
+   レスポンシブ: 横画面（ランドスケープ）
+   原文と翻訳を左右に並べて表示
+   ------------------------------------------------------------ */
+@media (orientation: landscape) {
+    body {
+        padding: 3px;
+        padding-left: max(3px, env(safe-area-inset-left));
+        padding-right: max(3px, env(safe-area-inset-right));
+    }
+
+    .container {
+        max-width: 100%;
+        gap: 3px;
+    }
+
+    .app-header {
+        padding: 1px 4px;
+    }
+
+    .app-title {
+        font-size: 14px;
+    }
+
+    .app-subtitle {
+        font-size: 10px;
+    }
+
+    .settings-button {
+        width: 32px;
+        height: 32px;
+    }
+
+    /* フル幅のボタン行 + その下に中央寄せのステータス（左右バランスを保つ） */
+    .control-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 3px;
+    }
+
+    .button-group {
+        flex-flow: row nowrap;    /* 横画面では折り返さず1段に */
+        gap: 6px;
+        width: 100%;              /* 横幅いっぱいに広げる */
+        max-width: none;
+        min-height: 40px;
+    }
+
+    .language-button {
+        flex: 0 0 auto;
+        padding: 6px 14px;
+        min-height: 40px;
+        font-size: 13px;
+    }
+
+    /* 主要言語ボタンは横並びで均等に伸ばす（基本ルールの flex:1 1 140px を上書き） */
+    .language-button.japanese,
+    .language-button.english,
+    .language-button.stop {
+        flex: 1 1 0;
+        min-width: 0;
+    }
+
+    /* リセット(♻️)を赤(日本語)と緑(English)の中央に置いて左右対称に */
+    /* stop は録音中のみ表示。明示的に order:1 を与え、リセットより前に置く */
+    .language-button.japanese,
+    .language-button.stop { order: 1; }
+    .language-button.reset { order: 2; }
+    .language-button.english { order: 3; }
+
+    .language-button .language-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .status {
+        font-size: 12px;
+        padding: 3px 10px;
+        white-space: nowrap;      /* 中央に1行で表示 */
+    }
+
+    /* 翻訳エリアを左右分割 */
+    .result-container {
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .result-box {
+        flex: 1;
+        min-height: 0;
+        padding: 8px 10px;
+        border-left-width: 3px;
+    }
+
+    .result-title {
+        font-size: 11px;
+        margin-bottom: 3px;
+    }
+
+    .result-content { font-size: 18px; line-height: 1.4; }
+    .result-content.size-small { font-size: 14px; }
+    .result-content.size-medium { font-size: 18px; }
+    .result-content.size-large { font-size: 22px; }
+    .result-content.size-xlarge { font-size: 26px; }
+
+    .language-indicator {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+
+    .tap-hint {
+        font-size: 9px;
+        padding: 1px 5px;
+    }
+
+    .conversation-log {
+        max-height: 26dvh;
+        padding: 8px 10px;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 420px) {
+    .app-header {
+        display: none; /* 高さの低い横画面では翻訳エリアを最大化 */
+    }
+
+    .control-container {
+        gap: 5px;
+    }
+
+    .button-group {
+        min-height: 36px;
+    }
+
+    .language-button {
+        min-height: 36px;
+        padding: 5px 10px;
+    }
+
+    .result-box {
+        padding: 7px 9px;
+    }
+
+    .result-content {
+        line-height: 1.35;
+    }
+
+    .copy-translation-btn {
+        min-height: 32px;
+        padding: 4px 8px;
+    }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+    .translation-quality-warning {
+        top: 3px;
+        left: 5px;
+        right: 5px;
+        padding: 6px 8px;
+    }
+
+    .warning-content { gap: 6px; }
+    .warning-icon { font-size: 14px; }
+    .warning-text { font-size: 11px; min-width: 100px; }
+    .retry-translation-btn { padding: 4px 8px; font-size: 10px; min-height: 36px; }
+    .close-warning-btn { font-size: 16px; padding: 8px; min-width: 36px; min-height: 36px; }
+}
+
+/* ------------------------------------------------------------
+   アクセシビリティ
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ------------------------------------------------------------
+   会話履歴モーダル（履歴をメイン画面から分離）
+   ------------------------------------------------------------ */
+.header-buttons {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+}
+
+#historyModal .conversation-log {
+    max-height: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+#historyModal .conversation-log-list {
+    max-height: 62dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.conversation-log-empty {
+    color: var(--color-text-muted, var(--color-text-secondary, #888));
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+.conversation-log-empty[hidden] {
+    display: none;
+}
+
+/* ------------------------------------------------------------
+   大型表示（相手に見せる）モード
+   ------------------------------------------------------------ */
+.present-translation-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 28px;
+    padding: 3px 10px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.present-translation-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.present-translation-btn:not(:disabled):active {
+    transform: scale(0.96);
+}
+
+/* フルスクリーンの提示ステージ */
+.present-modal {
+    align-items: stretch;
+    padding: 0;
+    background-color: var(--color-bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    z-index: 1100;
+}
+
+.present-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+    padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    animation: modal-in 0.2s ease-out;
+}
+
+.present-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(12px, 3vh, 28px);
+    text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.present-original {
+    color: var(--color-text-secondary);
+    font-size: clamp(16px, 4.5vw, 30px);
+    line-height: 1.4;
+    font-weight: 600;
+    max-width: 22ch;
+    overflow-wrap: anywhere;
+}
+
+.present-original:empty {
+    display: none;
+}
+
+.present-text {
+    color: var(--color-text);
+    font-size: clamp(34px, 9vw, 88px);
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    max-width: 18ch;
+    overflow-wrap: anywhere;
+}
+
+.present-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding-top: 18px;
+}
+
+.present-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 52px;
+    min-width: 120px;
+    padding: 0 22px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-strong);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.present-action-btn:active {
+    transform: scale(0.97);
+}
+
+.present-action-btn.replay {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
+
+/* 横画面では原文と翻訳を上下に詰め、ボタンを下端へ */
+@media (orientation: landscape) and (max-height: 520px) {
+    .present-text {
+        font-size: clamp(30px, 7.5vh, 64px);
+    }
+    .present-original {
+        font-size: clamp(14px, 3.2vh, 22px);
+    }
+    .present-actions {
+        padding-top: 10px;
+    }
+}
+
+/* ------------------------------------------------------------
+   文字サイズの即時切替ボタン（ヘッダー）
+   ------------------------------------------------------------ */
+.font-size-toggle-label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1px;
+    font-weight: 700;
+    line-height: 1;
+    font-size: 17px;
+}
+
+.font-size-toggle-label > span {
+    font-size: 11px;
+}
+
+/* ------------------------------------------------------------
+   翻訳モードバッジとユーザー辞書
+   ------------------------------------------------------------ */
+.domain-badge {
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    border-radius: 999px;
+    padding: 1px 8px;
+    white-space: nowrap;
+}
+
+.user-dict-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.user-dict-form .form-input {
+    margin: 0;
+}
+
+.dict-add-btn {
+    grid-column: 1 / -1;
+    padding: 9px 12px;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dict-add-btn:active {
+    transform: scale(0.98);
+}
+
+.user-dict-list {
+    margin-top: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-dict-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+}
+
+.user-dict-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-dict-remove {
+    flex: 0 0 auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: none;
+    color: var(--color-text);
+    font-size: 12px;
+    padding: 3px 8px;
+    cursor: pointer;
+}
+
+.user-dict-empty {
+    color: var(--color-text-muted, #888);
+    font-size: 13px;
+    padding: 4px 2px;
+}
+
+/* ------------------------------------------------------------
+   レイテンシ計測（F12）
+   ------------------------------------------------------------ */
+.latency-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+.latency-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.latency-label {
+    color: var(--color-text-muted, #777);
+}
+
+.latency-value {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.latency-samples {
+    color: var(--color-text-muted, #888);
+    font-size: 12px;
+}
+
+/* ------------------------------------------------------------
+   アプリ更新バナー
+   ------------------------------------------------------------ */
+.update-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--color-primary-soft, rgba(66, 146, 205, 0.12));
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 8px 10px;
+    margin: 4px 0 6px;
+    font-size: 13px;
+}
+
+.update-banner[hidden] {
+    display: none;
+}
+
+#updateBannerText {
+    flex: 1;
+    min-width: 0;
+}
+
+.update-banner-open {
+    flex: 0 0 auto;
+    background-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.update-banner-close {
+    flex: 0 0 auto;
+    background: none;
+    border: none;
+    color: var(--color-text);
+    font-size: 16px;
+    line-height: 1;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+
+/* ------------------------------------------------------------
+   初回セットアップガイド（F14）
+   ------------------------------------------------------------ */
+.first-run-intro {
+    background-color: var(--color-primary-soft, rgba(66, 146, 205, 0.10));
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.first-run-intro[hidden] {
+    display: none;
+}
+
+.first-run-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.first-run-intro ol {
+    margin: 6px 0;
+    padding-left: 20px;
+}
+
+.first-run-intro li {
+    margin: 4px 0;
+}
+
+.first-run-note {
+    color: var(--color-text-muted, #777);
+    font-size: 12px;
+    margin: 6px 0 0;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "bridge-tts-codex",
+  "version": "2.9.3",
+  "private": true,
+  "description": "日英リアルタイム音声翻訳（PWA + iOSネイティブアプリ）",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "playwright:install": "playwright install chromium",
+    "playwright:version": "playwright --version",
+    "test:smoke": "playwright test"
+  },
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-/issues"
+  },
+  "homepage": "https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.60.0"
+  }
+}
