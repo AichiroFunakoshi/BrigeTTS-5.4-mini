@@ -2,8 +2,8 @@
 # 使い方:
 #   1. bash ios/scripts/prepare-www.sh   # Webアセットとアプリアイコンを準備
 #   2. xcodegen generate --spec ios/project.yml --project ios
-#   3. ios/BridgeTTS.xcodeproj をXcodeで開く（またはxcodebuildでビルド）
-name: BridgeTTS
+#   3. ios/BridgeTTS54Mini.xcodeproj をXcodeで開く（またはxcodebuildでビルド）
+name: BridgeTTS54Mini
 options:
   bundleIdPrefix: com.a16
   deploymentTarget:
@@ -13,7 +13,7 @@ settings:
   base:
     SWIFT_VERSION: "5.9"
 targets:
-  BridgeTTS:
+  BridgeTTS54Mini:
     type: application
     platform: iOS
     sources:
@@ -24,20 +24,20 @@ targets:
         buildPhase: resources
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.a16.bridgetts
-        PRODUCT_NAME: BridgeTTS
+        PRODUCT_BUNDLE_IDENTIFIER: com.a16.bridgetts.gpt54mini
+        PRODUCT_NAME: BridgeTTS54Mini
         INFOPLIST_FILE: App/Info.plist
         GENERATE_INFOPLIST_FILE: NO
-        MARKETING_VERSION: "2.9.3"
+        MARKETING_VERSION: "2.9.4"
         CURRENT_PROJECT_VERSION: "1"
         TARGETED_DEVICE_FAMILY: "1,2"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         CODE_SIGN_STYLE: Automatic
 schemes:
-  BridgeTTS:
+  BridgeTTS54Mini:
     build:
       targets:
-        BridgeTTS: all
+        BridgeTTS54Mini: all
     run:
       config: Debug
     archive:

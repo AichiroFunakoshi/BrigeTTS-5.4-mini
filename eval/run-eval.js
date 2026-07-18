@@ -29,7 +29,7 @@ require(path.join(__dirname, '..', 'prompt-service.js'));
 const PromptService = global.window.PromptService;
 
 const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
-const DEFAULT_MODEL = 'gpt-4.1-nano';
+const DEFAULT_MODEL = 'gpt-5.4-mini-2026-03-17';
 const CONCURRENCY = 4;
 
 function parseArgs(argv) {
@@ -90,7 +90,9 @@ async function translate(testCase, apiKey, model) {
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userContent }
             ],
-            temperature: 0.3
+            reasoning_effort: 'none',
+            temperature: 0,
+            verbosity: 'low'
         })
     });
     if (!response.ok) {

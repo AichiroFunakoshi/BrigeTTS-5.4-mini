@@ -1,7 +1,7 @@
 // OpenAI翻訳APIとの通信とストリーミング解析
 const TranslatorService = {
     endpoint: 'https://api.openai.com/v1/chat/completions',
-    model: 'gpt-4.1-nano',
+    model: 'gpt-5.4-mini-2026-03-17',
 
     getSourceLanguageLabel: function(sourceLanguage) {
         return sourceLanguage === 'ja' ? '日本語' : '英語';
@@ -23,7 +23,9 @@ const TranslatorService = {
             ],
             stream: true,
             stream_options: { include_usage: true },
-            temperature: 0.3
+            reasoning_effort: 'none',
+            temperature: 0,
+            verbosity: 'low'
         };
     },
 

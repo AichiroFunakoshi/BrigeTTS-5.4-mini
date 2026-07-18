@@ -4,8 +4,8 @@
 **セッション開始時に必ず参照し、ここの規律に従うこと。**
 
 ## プロジェクト概要
-- **BridgeTTS**: 日英リアルタイム音声翻訳アプリ。**PWA（ブラウザ）** と **iOSネイティブ（AltStore配布）** の2形態。
-- 翻訳: OpenAI `gpt-4.1-nano`（端末から直接呼び出し）。音声: Web Speech API（iOSは `SFSpeechRecognizer` ブリッジで補完）。
+- **BridgeTTS 5.4-mini**: 日英リアルタイム音声翻訳アプリ。**PWA（ブラウザ）** と **iOSネイティブ（AltStore配布）** の2形態。
+- 翻訳: OpenAI `gpt-5.4-mini-2026-03-17`（端末から直接呼び出し）。音声: Web Speech API（iOSは `SFSpeechRecognizer` ブリッジで補完）。
 - 主要ファイル: `app.js`（本体・認識制御/翻訳トリガー/UI）, `translator-service.js`, `prompt-service.js`, `tts-service.js`, `native-speech.js`, `settings-storage.js`, `error-reporter.js`, `sw.js`, `index.html`, `style.css`, `ios/`。
 
 ## 触れてはいけない核（要・慎重）
@@ -14,7 +14,7 @@
 - **TTSの言語**: `TtsService.speak({ sourceLanguage })` は内部で言語を反転して発話言語を決める（`tts-service.js` 内 `sourceLanguage === 'ja' ? 'en-US' : 'ja-JP'`）。呼び出し側には **ソース（入力）言語** を渡す。呼び出し側での反転は二重反転になり禁止。
 
 ## 作業環境・リポジトリ規律
-- **GitHub（origin/main）が唯一の正**。複数Macで開発する場合、各Macに `~/Bridge-TTS(Codex)` としてローカルクローンを置く。
+- **GitHub（origin/main）が唯一の正**。この独立版は `AichiroFunakoshi/BrigeTTS-5.4-mini` を使用し、元の `Bridge-TTS-Codex-` を変更しない。
 - **セッション開始時の手順（指示がなくても必ず実施）**:
   1. ロック掃除→ `git fetch` → `git status -sb` と `git log --oneline -1` で**ローカルとorigin/mainの一致を確認**。
      このフォルダは手動コピーで他のMacから持ち込まれることがあり、古い状態・未コミット変更を含み得る。
