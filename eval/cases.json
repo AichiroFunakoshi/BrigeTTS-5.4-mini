@@ -180,7 +180,8 @@
         [
           "auditory hallucination",
           "hearing voices",
-          "hear voices"
+          "hear voices",
+          "hear hallucinations"
         ]
       ],
       "mustNotInclude": []
@@ -306,7 +307,9 @@
           "2 kg",
           "2 kilograms",
           "two kilograms",
-          "2kg"
+          "2kg",
+          "2 kilos",
+          "two kilos"
         ],
         [
           "lost",

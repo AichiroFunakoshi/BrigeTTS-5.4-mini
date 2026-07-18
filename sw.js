@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'bridgetts-5-4-mini-v29';
+const CACHE_VERSION = 'bridgetts-5-4-mini-v30';
 const APP_SHELL = [
     './',
     './index.html',

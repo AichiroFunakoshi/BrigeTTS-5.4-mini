@@ -1,6 +1,6 @@
 {
   "name": "brigetts-5-4-mini",
-  "version": "2.9.4",
+  "version": "2.9.5",
   "private": true,
   "description": "日英リアルタイム音声翻訳（PWA + iOSネイティブアプリ）",
   "main": "app.js",

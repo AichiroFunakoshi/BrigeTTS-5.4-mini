@@ -2666,7 +2666,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .slice(Math.max(0, monoTranslatedCount - MONO_CONTEXT_SEGMENTS), monoTranslatedCount)
                 .join(' ');
             const contextTranslation = monoTranslation.slice(-MONO_CONTEXT_TRANSLATION_CHARS);
-            context = `直前の発話（文脈。翻訳しないこと）:\n原文: ${contextSource}\n訳文: ${contextTranslation}\n\n`;
+            context = `直前の発話（文脈。翻訳しないこと）:\n原文: ${contextSource}\n訳文: ${contextTranslation}\n\n上の文脈に代名詞・省略主語の参照先がある場合は、対象人物を訳文内で必ず明示し、代名詞だけまたは主語省略にしないこと。\n\n`;
         }
         return `${context}以下の${sourceLabel}テキストは発話の続きである。上の文脈に自然につながる${targetLabel}訳のみを出力してください:\n\n${chunk}`;
     }
