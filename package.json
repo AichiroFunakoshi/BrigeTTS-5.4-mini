@@ -1,6 +1,6 @@
 {
-  "name": "bridge-tts-codex",
-  "version": "2.9.3",
+  "name": "brigetts-5-4-mini",
+  "version": "2.9.4",
   "private": true,
   "description": "日英リアルタイム音声翻訳（PWA + iOSネイティブアプリ）",
   "main": "app.js",
@@ -17,16 +17,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-.git"
+    "url": "git+https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-/issues"
+    "url": "https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini/issues"
   },
-  "homepage": "https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-#readme",
+  "homepage": "https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini#readme",
   "devDependencies": {
     "@playwright/test": "^1.60.0"
   }

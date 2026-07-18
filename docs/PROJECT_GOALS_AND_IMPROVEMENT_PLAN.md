@@ -89,7 +89,7 @@ BridgeTTSは汎用翻訳アプリ（Google翻訳等）と競争しない。**「
 | **v2.8** | 誰でも使える | F14オンボーディング、F15キー運用（調査→採否判断）、同僚テスト実施。完了条件: 初見の同僚が補助なしでセットアップ完了／KPI-5達成 |
 | **v3.0** | ビジョン達成宣言 | KPI 5項目を実測してすべて達成（判定手順と残作業の詳細設計は [POST_MEASUREMENT_PLAN.md](POST_MEASUREMENT_PLAN.md)）。計測UIの削除/非表示化もここで実施 |
 
-進捗の確認先: [CHANGELOG.md](../CHANGELOG.md)（何を出したか）／[進捗ダッシュボード](https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/dashboard.html)（今どうなっているか）／本文書§4.1の状態列（ゴールにどこまで近いか。リリースごとに更新）
+進捗の確認先: [CHANGELOG.md](../CHANGELOG.md)（何を出したか）／[進捗ダッシュボード](https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/dashboard.html)（今どうなっているか）／本文書§4.1の状態列（ゴールにどこまで近いか。リリースごとに更新）
 
 ### v2.7 レイテンシ設計（確定済み・実装順）
 
@@ -118,6 +118,6 @@ BridgeTTSは汎用翻訳アプリ（Google翻訳等）と競争しない。**「
 ## 8. 技術方針（現行アーキテクチャの維持事項）
 
 - WKWebView＋Webアプリ共通コア（PWA/ネイティブの二重保守を避ける）
-- 翻訳は端末→OpenAI直（gpt-4.1-nano）。品質はプロンプト＋辞書で作り込む（モデル変更は評価ハーネスで比較してから）
+- 翻訳は端末→OpenAI直（固定スナップショット `gpt-5.4-mini-2026-03-17`）。品質はプロンプト＋辞書で作り込む（モデル変更は評価ハーネスで比較してから）
 - 保存は端末localStorage（可搬性はF10で担保）
 - 配信はGitHub Actions完全自動（人手の配布作業ゼロ）

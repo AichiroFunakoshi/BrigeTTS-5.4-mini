@@ -6,8 +6,8 @@ import os
 import shutil
 import urllib.request
 
-REPO = os.environ.get("GITHUB_REPOSITORY", "AichiroFunakoshi/Bridge-TTS-Codex-")
-PAGES_BASE = "https://aichirofunakoshi.github.io/Bridge-TTS-Codex-"
+REPO = os.environ.get("GITHUB_REPOSITORY", "AichiroFunakoshi/BrigeTTS-5.4-mini")
+PAGES_BASE = "https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini"
 DESCRIPTION = (
     "日本語と英語のリアルタイム音声翻訳アプリ。\n"
     "音声認識で文字起こしし、OpenAI APIで翻訳、音声で読み上げます。\n"
@@ -54,14 +54,14 @@ def build_versions(releases):
 def main():
     versions = build_versions(fetch_releases())
     source = {
-        "name": "BridgeTTS Source",
-        "identifier": "com.a16.bridgetts.source",
+        "name": "BridgeTTS 5.4-mini Source",
+        "identifier": "com.a16.bridgetts.gpt54mini.source",
         "subtitle": "日英リアルタイム音声翻訳",
         "website": f"https://github.com/{REPO}",
         "iconURL": f"{PAGES_BASE}/icon.png",
         "apps": [{
-            "name": "BridgeTTS",
-            "bundleIdentifier": "com.a16.bridgetts",
+            "name": "BridgeTTS 5.4-mini",
+            "bundleIdentifier": "com.a16.bridgetts.gpt54mini",
             "developerName": "A_1_6",
             "subtitle": "日英リアルタイム音声翻訳",
             "localizedDescription": DESCRIPTION,
@@ -91,7 +91,7 @@ def main():
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BridgeTTS - AltStoreソース</title>
+<title>BridgeTTS 5.4-mini - AltStoreソース</title>
 <style>
 body {{ font-family: -apple-system, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 16px; line-height: 1.7; }}
 img {{ width: 96px; border-radius: 22px; }}
@@ -100,8 +100,8 @@ code {{ background: #f0f0f0; padding: 2px 6px; border-radius: 4px; word-break: b
 </style>
 </head>
 <body>
-<img src="icon.png" alt="BridgeTTS">
-<h1>BridgeTTS</h1>
+<img src="icon.png" alt="BridgeTTS 5.4-mini">
+<h1>BridgeTTS 5.4-mini</h1>
 <p>日英リアルタイム音声翻訳アプリのAltStoreソースです。</p>
 <p><a class="btn" href="altstore://source?url={source_url}">AltStoreにソースを追加</a></p>
 <p>上のボタンが動かない場合は、AltStoreの「Sources」→「＋」に次のURLを貼り付けてください：</p>

@@ -1,29 +1,31 @@
-# BridgeTTS
+# BridgeTTS 5.4-mini
 
 ![BridgeTTS](images/icons/ios-appicon-1024.png)
 
-日本語と英語のリアルタイム音声翻訳アプリです。音声認識で文字起こしし、OpenAI API（gpt-4.1-nano）で翻訳、Web Speech APIで音声読み上げ（TTS）します。**PWA（ブラウザ）** と **iOSネイティブアプリ（AltStore配布）** の2形態で動作します。
+日本語と英語のリアルタイム音声翻訳アプリです。音声認識で文字起こしし、OpenAI API（固定スナップショット `gpt-5.4-mini-2026-03-17`）で翻訳、Web Speech APIで音声読み上げ（TTS）します。**PWA（ブラウザ）** と **iOSネイティブアプリ（AltStore配布）** の2形態で動作します。
+
+このリポジトリは既存の `Bridge-TTS-Codex-` を内容コピーして独立させたGPT-5.4 mini版です。元リポジトリ・既存配布アプリとは別のBundle ID、AltStore Source ID、製品名、IPA名を使用します。
 
 - 更新履歴: [CHANGELOG.md](CHANGELOG.md)
 - iOSアプリのビルド・インストール手順: [docs/IOS_APP.md](docs/IOS_APP.md)
 - 図解仕様書: [docs/VISUAL_GUIDE.html](docs/VISUAL_GUIDE.html)
 - 開発の引き継ぎ・別PCでの作業継続: [docs/HANDOFF.md](docs/HANDOFF.md)
 - 順送り翻訳（石畳方式）の設計文書: 仕様書 [docs/MONOTONIC_BETA_SPEC.md](docs/MONOTONIC_BETA_SPEC.md) / 論文 [docs/ISHIDATAMI_SCHEME.md](docs/ISHIDATAMI_SCHEME.md)
-- 進捗ダッシュボード: https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/dashboard.html
+- 進捗ダッシュボード: https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/dashboard.html
 
 ## インストール
 
 ### iOSネイティブアプリ（推奨）
 
 1. AltStore/AltServerをセットアップ（初回のみ。[docs/IOS_APP.md](docs/IOS_APP.md)参照）
-2. iPhoneのSafariで **https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/altstore.html** を開き「AltStoreにソースを追加」
-3. AltStoreの Browse から BridgeTTS をインストール
+2. iPhoneのSafariで **https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/altstore.html** を開き「AltStoreにソースを追加」
+3. AltStoreの Browse から BridgeTTS 5.4-mini をインストール
 
 以後の更新はAltStoreの「アップデート」からワンタップで行えます（設定・履歴・APIキーは引き継がれます）。
 
 ### PWA（ブラウザ）
 
-1. https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/ をSafari（iOS）/Chrome（Android）で開く
+1. https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/ をSafari（iOS）/Chrome（Android）で開く
 2. iPhone/iPad: 共有ボタン →「ホーム画面に追加」 / Android: メニュー →「アプリをインストール」
 
 ### 必要なもの
@@ -48,7 +50,7 @@
 - **レスポンシブレイアウト**: 横画面では原文と翻訳を左右並列表示
 - **視覚的状態フィードバック**: 録音中（青）/翻訳中（オレンジ）/完了（緑）を色で表示
 - **設定のエクスポート/インポート**: ユーザー辞書・翻訳モード・デバウンス学習値・表示設定をJSON一括でコピー/貼り付けし、別端末へ移行可能
-- **API使用量の表示**: 翻訳ごとのトークン数を端末内で累計し、設定画面に概算コスト（gpt-4.1-nano料金基準）を表示。レイテンシ統計の1タップ送信にも対応
+- **API使用量の表示**: 翻訳ごとのトークン数を端末内で累計し、設定画面に概算コスト（gpt-5.4-mini料金基準）を表示。レイテンシ統計の1タップ送信にも対応
 - **エラー報告**: エラー発生時に「⚠️ エラーを報告」ボタンが出現。ネイティブアプリではGitHub Issuesへ直接送信（アカウント不要・APIキー等は自動マスク）、Web版ではIssue下書き画面を開く。録音中のフリーズ→強制終了もハートビートで検出し、次回起動時に直前ログ付きで報告可能
 
 ## iOSネイティブアプリの仕組み
@@ -61,8 +63,8 @@ WKWebViewでWebアプリ本体をそのまま動かし、WKWebViewに存在し�
 ## 開発
 
 ```bash
-git clone https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-.git
-cd Bridge-TTS-Codex-
+git clone https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini.git
+cd BrigeTTS-5.4-mini
 
 # Node 22を使用（Playwright 1.60はNode 24/25で不安定なため）
 nvm use  # .nvmrc準拠。Homebrewの場合: export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
@@ -86,7 +88,7 @@ npm run test:smoke -- --reporter=line
 | ファイル | 役割 |
 |---|---|
 | `app.js` | アプリ本体（音声認識制御・翻訳トリガー・UI） |
-| `translator-service.js` | OpenAI API（gpt-4.1-nano）ストリーミング翻訳 |
+| `translator-service.js` | OpenAI API（gpt-5.4-mini固定スナップショット）ストリーミング翻訳 |
 | `prompt-service.js` | 翻訳システムプロンプト（誤認識の文脈修正ルールを含む） |
 | `tts-service.js` | 音声読み上げ（ネイティブ時はオーディオセッション切替＋ウォームアップ） |
 | `native-speech.js` | iOSネイティブ音声認識ブリッジ（Web側） |

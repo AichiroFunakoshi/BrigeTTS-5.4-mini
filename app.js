@@ -1525,9 +1525,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ---- API使用量の概算（F15: 使用量の可視化） ----
-    const NANO_PRICE_IN = 0.10 / 1e6;      // USD/トークン（gpt-4.1-nano 非キャッシュ入力）
-    const NANO_PRICE_CACHED = 0.025 / 1e6; // 同キャッシュ済み入力
-    const NANO_PRICE_OUT = 0.40 / 1e6;     // 同出力
+    const MINI_PRICE_IN = 0.75 / 1e6;       // USD/トークン（gpt-5.4-mini 非キャッシュ入力）
+    const MINI_PRICE_CACHED = 0.075 / 1e6;  // 同キャッシュ済み入力
+    const MINI_PRICE_OUT = 4.50 / 1e6;      // 同出力
     let usageTotals = AppSettingsStorage.getUsageTotals();
 
     function updateUsageUI() {
@@ -1538,9 +1538,9 @@ document.addEventListener('DOMContentLoaded', function() {
             element.textContent = 'まだ使用データがありません';
             return;
         }
-        const cost = usageTotals.inTokens * NANO_PRICE_IN +
-            usageTotals.cachedTokens * NANO_PRICE_CACHED +
-            usageTotals.outTokens * NANO_PRICE_OUT;
+        const cost = usageTotals.inTokens * MINI_PRICE_IN +
+            usageTotals.cachedTokens * MINI_PRICE_CACHED +
+            usageTotals.outTokens * MINI_PRICE_OUT;
         const since = new Date(usageTotals.since).toLocaleDateString('ja-JP');
         element.textContent = `${since}から 約${totalTokens.toLocaleString()}トークン ≒ $${cost.toFixed(3)}`;
     }
@@ -1630,7 +1630,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================================
     // アプリ更新の自動検知（ネイティブ版のみ。PWAはService Workerが自動更新）
     // ========================================
-    const UPDATE_CHECK_URL = 'https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/apps.json';
+    const UPDATE_CHECK_URL = 'https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/apps.json';
     const UPDATE_CHECK_INTERVAL_MS = 6 * 60 * 60 * 1000; // 6時間
     const DISMISSED_UPDATE_KEY = 'translatorDismissedUpdate';
     let lastUpdateCheckAt = 0;
@@ -2446,7 +2446,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 10000);
     }
 
-    // OpenAI API（gpt-4.1-nanoモデル）を使用してテキストを翻訳
+    // OpenAI API（gpt-5.4-mini固定スナップショット）を使用してテキストを翻訳
     async function translateText(text) {
         // 翻訳処理の実行条件をチェック
         if (!text || !text.trim()) {

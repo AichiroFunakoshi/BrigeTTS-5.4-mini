@@ -1,4 +1,4 @@
-# BridgeTTS iOSアプリ（AltStore配布）
+# BridgeTTS 5.4-mini iOSアプリ（AltStore配布）
 
 このリポジトリのPWAを、iOSネイティブアプリとしてビルドし、AltStoreでサイドロードするためのガイドです。
 
@@ -6,7 +6,7 @@
 
 ```
 ┌─────────────────────────────────────────────┐
-│ BridgeTTS.app (iOS)                          │
+│ BridgeTTS54Mini.app (iOS)                    │
 │ ┌──────────────────────────────────────────┐ │
 │ │ WKWebView                                 │ │
 │ │  - バンドル内の www/（PWAのコピー）を表示  │ │
@@ -30,8 +30,8 @@
 
 1. GitHubリポジトリの **Actions** タブ → **Build iOS App (unsigned IPA)** を開く
 2. 最新の成功したワークフロー実行を開く
-3. **Artifacts** から `BridgeTTS-unsigned-ipa` をダウンロード
-4. zipを展開して `BridgeTTS-unsigned.ipa` を取り出す
+3. **Artifacts** から `BridgeTTS-5.4-mini-unsigned-ipa` をダウンロード
+4. zipを展開して `BridgeTTS-5.4-mini-unsigned.ipa` を取り出す
 
 `v` で始まるタグ（例 `v2.0.0`）をpushすると、Releaseが自動作成されIPAが添付されます。
 
@@ -47,24 +47,24 @@ bash ios/scripts/prepare-www.sh
 xcodegen generate --spec ios/project.yml --project ios
 
 # 3a. Xcodeで開いて実機にRun（開発時はこちらが簡単）
-open ios/BridgeTTS.xcodeproj
+open ios/BridgeTTS54Mini.xcodeproj
 
 # 3b. または未署名IPAをCLIでビルド
-xcodebuild -project ios/BridgeTTS.xcodeproj -scheme BridgeTTS \
+xcodebuild -project ios/BridgeTTS54Mini.xcodeproj -scheme BridgeTTS54Mini \
   -configuration Release -sdk iphoneos -derivedDataPath ios/build \
   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
 mkdir -p ios/build/Payload
-cp -R ios/build/Build/Products/Release-iphoneos/BridgeTTS.app ios/build/Payload/
-(cd ios/build && zip -qry BridgeTTS-unsigned.ipa Payload)
+cp -R ios/build/Build/Products/Release-iphoneos/BridgeTTS54Mini.app ios/build/Payload/
+(cd ios/build && zip -qry BridgeTTS-5.4-mini-unsigned.ipa Payload)
 ```
 
 ## AltStoreソースからのインストール・更新（推奨）
 
 ソースを登録しておくと、IPAを手動転送せずにAltStoreだけでインストール・更新が完結します。
 
-1. iPhoneのSafariで https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/altstore.html を開き「AltStoreにソースを追加」をタップ
-   （またはAltStoreの **Sources** → **＋** に `https://aichirofunakoshi.github.io/Bridge-TTS-Codex-/apps.json` を貼り付け）
-2. AltStoreの **Browse** にBridgeTTSが表示されるので **FREE** をタップしてインストール
+1. iPhoneのSafariで https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/altstore.html を開き「AltStoreにソースを追加」をタップ
+   （またはAltStoreの **Sources** → **＋** に `https://aichirofunakoshi.github.io/BrigeTTS-5.4-mini/apps.json` を貼り付け）
+2. AltStoreの **Browse** にBridgeTTS 5.4-miniが表示されるので **FREE** をタップしてインストール
 3. 新バージョンが公開されると **My Apps** に「アップデート」が表示され、ワンタップで更新できます
    （アプリのデータ・APIキー・設定は引き継がれます）
 
@@ -81,7 +81,7 @@ cp -R ios/build/Build/Products/Release-iphoneos/BridgeTTS.app ios/build/Payload/
 アプリ（およびWeb版）でエラーが発生すると「⚠️ エラーを報告」ボタンが表示されます。
 タップするとログ（APIキー等は自動マスク）を確認のうえ送信できます。
 
-- **ネイティブアプリ**: GitHubの[Issues](https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-/issues)に `error-report` ラベル付きで直接作成されます（アカウント不要・アプリ内完結）
+- **ネイティブアプリ**: GitHubの[Issues](https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini/issues)に `error-report` ラベル付きで直接作成されます（アカウント不要・アプリ内完結）
 - **Web/PWA版**: GitHubのIssue作成画面が下書き付きで開きます（GitHubアカウントが必要）
 
 ネイティブアプリの直接送信を有効にするには、リポジトリ管理者が以下を一度だけ設定します:
@@ -95,7 +95,7 @@ cp -R ios/build/Build/Products/Release-iphoneos/BridgeTTS.app ios/build/Payload/
 
 ## AltStoreでのインストール手順
 
-> **⚠️ 重要（よくあるつまずき）**: `BridgeTTS-unsigned.ipa` は**Mac上でダブルクリックしてもインストールできません**。未署名のため「整合性を確認できなかったためインストールできませんでした」というエラーになります。これはiOSの仕様で、必ずiPhoneに転送し、**iPhone上のAltStoreから**開いて署名・インストールしてください。
+> **⚠️ 重要（よくあるつまずき）**: `BridgeTTS-5.4-mini-unsigned.ipa` は**Mac上でダブルクリックしてもインストールできません**。未署名のため「整合性を確認できなかったためインストールできませんでした」というエラーになります。これはiOSの仕様で、必ずiPhoneに転送し、**iPhone上のAltStoreから**開いて署名・インストールしてください。
 
 ### 事前準備（初回のみ）
 
@@ -106,7 +106,7 @@ cp -R ios/build/Build/Products/Release-iphoneos/BridgeTTS.app ios/build/Payload/
 
 
 1. [AltStore](https://altstore.io/) をPC/Mac経由でiPhoneにインストールしておく（AltServerが必要）
-2. `BridgeTTS-unsigned.ipa` をiPhoneに転送（AirDrop、ファイルApp、iCloud Driveなど）
+2. `BridgeTTS-5.4-mini-unsigned.ipa` をiPhoneに転送（AirDrop、ファイルApp、iCloud Driveなど）
 3. iPhoneでAltStoreを開く → **My Apps** → 左上の **＋** → ダウンロードしたIPAを選択
 4. Apple IDで署名されてインストールされる
 5. 初回起動時にマイクと音声認識の権限を許可する

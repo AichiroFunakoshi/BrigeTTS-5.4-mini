@@ -155,7 +155,7 @@ footer a { color: #60a5fa; text-decoration: none; }
 <header>
   <h1>BridgeTTS 図解ガイド</h1>
   <p>日本語 ⇔ 英語 リアルタイム音声翻訳アプリ — エンドユーザー向け完全ガイド</p>
-  <span class="badge">gpt-4.1-nano 搭載 ／ PWA + iOSネイティブアプリ対応</span>
+  <span class="badge">gpt-5.4-mini 搭載 ／ PWA + iOSネイティブアプリ対応</span>
 </header>
 
 <!-- 目次 -->
@@ -264,7 +264,7 @@ footer a { color: #60a5fa; text-decoration: none; }
       <line x1="400" y1="83" x2="450" y2="83" stroke="#bbf7d0" stroke-width="1"/>
       <line x1="400" y1="107" x2="450" y2="107" stroke="#bbf7d0" stroke-width="1"/>
       <text x="425" y="155" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d" font-family="sans-serif">AI翻訳</text>
-      <text x="425" y="170" text-anchor="middle" font-size="10" fill="#15803d" font-family="sans-serif">(gpt-4.1-nano)</text>
+      <text x="425" y="170" text-anchor="middle" font-size="10" fill="#15803d" font-family="sans-serif">(gpt-5.4-mini)</text>
 
       <!-- Arrow 3 -->
       <line x1="492" y1="100" x2="528" y2="100" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arr)"/>
@@ -280,7 +280,7 @@ footer a { color: #60a5fa; text-decoration: none; }
       <text x="595" y="155" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e" font-family="sans-serif">音声読み上げ</text>
       <text x="595" y="170" text-anchor="middle" font-size="10" fill="#92400e" font-family="sans-serif">(TTS／タップで再生)</text>
     </svg>
-    <figcaption>図1 ： 話す → 文字起こし → AI翻訳(gpt-4.1-nano) → 音声読み上げの4ステップパイプライン</figcaption>
+    <figcaption>図1 ： 話す → 文字起こし → AI翻訳(gpt-5.4-mini) → 音声読み上げの4ステップパイプライン</figcaption>
   </figure>
 
   <h3>図2 ： PWA版と iOSアプリ版の構成比較</h3>
@@ -311,7 +311,7 @@ footer a { color: #60a5fa; text-decoration: none; }
 
       <!-- OpenAI -->
       <rect x="80" y="202" width="215" height="38" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
-      <text x="187" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d" font-family="sans-serif">OpenAI API（gpt-4.1-nano）</text>
+      <text x="187" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d" font-family="sans-serif">OpenAI API（gpt-5.4-mini）</text>
 
       <!-- Arrow PWA -->
       <line x1="187" y1="184" x2="187" y2="200" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arr2)"/>
@@ -322,9 +322,9 @@ footer a { color: #60a5fa; text-decoration: none; }
       <text x="187" y="296" text-anchor="middle" font-size="11" fill="#4338ca" font-family="sans-serif">Safari → 共有ボタン → ホーム画面に追加</text>
 
       <!-- ===== iOSアプリ右カラム ===== -->
-      <!-- BridgeTTS.app 外枠 -->
+      <!-- BridgeTTS54Mini.app 外枠 -->
       <rect x="415" y="55" width="315" height="195" rx="14" fill="#ede9fe" stroke="#7c3aed" stroke-width="2"/>
-      <text x="572" y="77" text-anchor="middle" font-size="13" font-weight="700" fill="#6d28d9" font-family="sans-serif">BridgeTTS.app（iOSネイティブ）</text>
+      <text x="572" y="77" text-anchor="middle" font-size="13" font-weight="700" fill="#6d28d9" font-family="sans-serif">BridgeTTS54Mini.app（iOSネイティブ）</text>
 
       <!-- WKWebView層 -->
       <rect x="432" y="86" width="281" height="72" rx="10" fill="#c4b5fd" stroke="#7c3aed" stroke-width="1.5"/>
@@ -379,7 +379,7 @@ footer a { color: #60a5fa; text-decoration: none; }
           <tr><td>iPhone / iPad</td><td>iOS 16以降を搭載していること</td></tr>
           <tr><td>PC または Mac</td><td>AltServerのインストール先（Windows/Mac両対応）</td></tr>
           <tr><td>Apple ID</td><td>無料アカウントでOK（開発者登録不要）</td></tr>
-          <tr><td>BridgeTTS-unsigned.ipa</td><td>GitHub Actionsのアーティファクトからダウンロード</td></tr>
+          <tr><td>BridgeTTS-5.4-mini-unsigned.ipa</td><td>GitHub Actionsのアーティファクトからダウンロード</td></tr>
           <tr><td>AltStore（iPhoneにインストール済み）</td><td><a href="https://altstore.io" style="color:var(--color-primary)">altstore.io</a> からAltServerを入れてiPhoneに転送</td></tr>
           <tr><td>OpenAI APIキー</td><td>アプリ起動後、設定から入力</td></tr>
         </tbody>
@@ -418,7 +418,7 @@ footer a { color: #60a5fa; text-decoration: none; }
       <rect x="256" y="87" width="35" height="6" rx="3" fill="white" opacity=".7"/>
       <rect x="256" y="98" width="42" height="6" rx="3" fill="white" opacity=".5"/>
       <text x="280" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e" font-family="sans-serif">② Artifacts から</text>
-      <text x="280" y="144" text-anchor="middle" font-size="10" fill="#92400e" font-family="sans-serif">BridgeTTS-unsigned</text>
+      <text x="280" y="144" text-anchor="middle" font-size="10" fill="#92400e" font-family="sans-serif">BridgeTTS-5.4-mini-unsigned</text>
       <text x="280" y="158" text-anchor="middle" font-size="10" fill="#92400e" font-family="sans-serif">.ipa をダウンロード</text>
 
       <line x1="372" y1="100" x2="402" y2="100" stroke="#6366f1" stroke-width="2" marker-end="url(#arr3)"/>
@@ -495,7 +495,7 @@ footer a { color: #60a5fa; text-decoration: none; }
       <rect x="220" y="78" width="520" height="54" rx="12" fill="#f5f3ff" stroke="#ddd6fe" stroke-width="1.5"/>
       <circle cx="248" cy="105" r="16" fill="#7c3aed"/>
       <text x="248" y="110" text-anchor="middle" font-size="14" font-weight="800" fill="white" font-family="sans-serif">2</text>
-      <text x="276" y="97" font-size="12" font-weight="700" fill="#5b21b6" font-family="sans-serif">BridgeTTS-unsigned.ipa をiPhoneへ転送</text>
+      <text x="276" y="97" font-size="12" font-weight="700" fill="#5b21b6" font-family="sans-serif">BridgeTTS-5.4-mini-unsigned.ipa をiPhoneへ転送</text>
       <text x="276" y="116" font-size="10.5" fill="#7c3aed" font-family="sans-serif">AirDrop・iCloud Drive・ファイルアプリなどでiPhoneのストレージに保存</text>
 
       <!-- Step 3 -->
@@ -503,7 +503,7 @@ footer a { color: #60a5fa; text-decoration: none; }
       <circle cx="248" cy="171" r="16" fill="#16a34a"/>
       <text x="248" y="176" text-anchor="middle" font-size="14" font-weight="800" fill="white" font-family="sans-serif">3</text>
       <text x="276" y="163" font-size="12" font-weight="700" fill="#15803d" font-family="sans-serif">AltStoreを開く → My Apps → 左上の「＋」→ IPAを選択</text>
-      <text x="276" y="182" font-size="10.5" fill="#16a34a" font-family="sans-serif">ファイル一覧からBridgeTTS-unsigned.ipaをタップして選択</text>
+      <text x="276" y="182" font-size="10.5" fill="#16a34a" font-family="sans-serif">ファイル一覧からBridgeTTS-5.4-mini-unsigned.ipaをタップして選択</text>
 
       <!-- Step 4 -->
       <rect x="220" y="210" width="520" height="54" rx="12" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
@@ -908,10 +908,10 @@ footer a { color: #60a5fa; text-decoration: none; }
       </thead>
       <tbody>
         <tr>
-          <td>gpt-4.1-nano</td>
-          <td>$0.10 / 100万トークン</td>
-          <td>$0.40 / 100万トークン</td>
-          <td>通常数百トークン以下 = <strong>0.01円未満が目安</strong></td>
+          <td>gpt-5.4-mini</td>
+          <td>$0.75 / 100万トークン</td>
+          <td>$4.50 / 100万トークン</td>
+          <td>入力・出力トークン数と為替レートにより変動</td>
         </tr>
       </tbody>
     </table>
@@ -963,7 +963,7 @@ footer a { color: #60a5fa; text-decoration: none; }
         </tr>
         <tr>
           <td>翻訳AIモデル</td>
-          <td colspan="2">OpenAI gpt-4.1-nano（低価格・高速）</td>
+          <td colspan="2">OpenAI gpt-5.4-mini（固定スナップショット）</td>
         </tr>
         <tr>
           <td>音声認識</td>
@@ -1118,9 +1118,9 @@ footer a { color: #60a5fa; text-decoration: none; }
 </main>
 
 <footer>
-  <p>BridgeTTS 図解ガイド ／ 対象アプリ: Bridge-TTS Codex（gpt-4.1-nano搭載）</p>
+  <p>BridgeTTS 図解ガイド ／ 対象アプリ: BridgeTTS 5.4-mini（gpt-5.4-mini搭載）</p>
   <p style="margin-top:6px;">
-    <a href="https://github.com/AichiroFunakoshi/Bridge-TTS-Codex-">GitHubリポジトリ</a>
+    <a href="https://github.com/AichiroFunakoshi/BrigeTTS-5.4-mini">GitHubリポジトリ</a>
     ／
     <a href="https://platform.openai.com/api-keys">OpenAI APIキー取得</a>
     ／

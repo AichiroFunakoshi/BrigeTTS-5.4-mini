@@ -16,7 +16,7 @@ test('loads app shell and core browser modules', async ({ page }) => {
     const response = await page.goto('/', { waitUntil: 'networkidle' });
 
     expect(response.status()).toBe(200);
-    await expect(page.locator('.app-title')).toHaveText('BridgeTTS v2.9.3');
+    await expect(page.locator('.app-title')).toHaveText('BridgeTTS 5.4-mini v2.9.4');
     await expect(page.locator('#startJapaneseBtn')).toBeVisible();
     await expect(page.locator('#startEnglishBtn')).toBeVisible();
     await expect(page.locator('#translationBox')).toBeVisible();
@@ -79,6 +79,8 @@ test('loads the default translation prompt rules', async ({ page }) => {
     expect(prompt).toContain('英語の場合は日本語');
     expect(prompt).toContain('フィラー');
     expect(prompt).toContain('翻訳のみを出力');
+    expect(prompt).toContain('原文の肯定・否定、疑問・命令・条件を変えない');
+    expect(prompt).toContain('原文にない症状、予定、因果関係、数値を追加しない');
 
     // 翻訳モード（会話領域）とユーザー辞書のプロンプト注入
     const injectedPrompt = await page.evaluate(() => window.PromptService.getTranslationSystemPrompt({
@@ -92,7 +94,7 @@ test('loads the default translation prompt rules', async ({ page }) => {
 
     const dailyPrompt = await page.evaluate(() => window.PromptService.getTranslationSystemPrompt({ domain: 'daily' }));
     expect(dailyPrompt).toContain('日常会話');
-    expect(dailyPrompt).not.toContain('ユーザー辞書');
+    expect(dailyPrompt).not.toContain('【ユーザー辞書（');
 });
 
 test('supports monotonic translation mode modules', async ({ page }) => {
@@ -306,7 +308,10 @@ test('parses translator service stream lines and payloads', async ({ page }) => 
             expectedModel: window.TranslatorService.model,
             model: payload.model,
             stream: payload.stream,
+            streamOptions: payload.stream_options,
+            reasoningEffort: payload.reasoning_effort,
             temperature: payload.temperature,
+            verbosity: payload.verbosity,
             systemPrompt: payload.messages[0].content,
             userPrompt: payload.messages[1].content
         };
@@ -319,7 +324,10 @@ test('parses translator service stream lines and payloads', async ({ page }) => 
         ignored: '',
         invalidJson: '',
         stream: true,
-        temperature: 0.3,
+        streamOptions: { include_usage: true },
+        reasoningEffort: 'none',
+        temperature: 0,
+        verbosity: 'low',
         systemPrompt: 'system prompt',
         userPrompt: '以下の日本語テキストを英語に翻訳してください:\n\nこんにちは'
     });
