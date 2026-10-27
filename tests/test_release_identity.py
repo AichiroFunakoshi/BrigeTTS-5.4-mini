@@ -44,7 +44,7 @@ class ReleaseIdentityTests(unittest.TestCase):
         evaluator = self.read("eval/run-eval.js")
 
         for content in (translator, evaluator):
-            self.assertIn("gpt-5.4-mini-2026-03-17", content)
+            self.assertIn("gpt-5.6-luna", content)
             self.assertIn("reasoning_effort", content)
             self.assertIn("temperature: 0", content)
             self.assertIn("verbosity", content)

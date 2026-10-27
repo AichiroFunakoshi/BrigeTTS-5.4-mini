@@ -29,7 +29,7 @@ require(path.join(__dirname, '..', 'prompt-service.js'));
 const PromptService = global.window.PromptService;
 
 const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
-const DEFAULT_MODEL = 'gpt-5.4-mini-2026-03-17';
+const DEFAULT_MODEL = 'gpt-5.6-luna';
 const CONCURRENCY = 4;
 
 function parseArgs(argv) {

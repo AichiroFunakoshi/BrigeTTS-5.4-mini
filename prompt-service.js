@@ -44,6 +44,16 @@ const PromptService = {
 この会話は日常的な場面で行われている。専門用語よりも自然で平易な口語表現を優先し、会話として滑らかな訳にする。`
     },
 
+    // gpt-5.6-luna向けの追加手当て（2026-10-26の比較評価で検証済み）。
+    // 英語の同音誤認（weight/wait等）は基礎プロンプトだけではLunaが直訳してしまうため、
+    // 文脈判断の指示と用語固定を末尾に足す。現行の gpt-5.4-mini に足すと asr-03
+    // （投石→透析）が lithotripsy へ誤る副作用が確認されているため、モデルとセットで使うこと。
+    englishAsrReinforcementSection: `【追加手当て: 英語入力の同音誤認と用語の固定】
+- 英語入力で文の構造や意味が不自然になる語がある場合は、直訳する前に、発音が同じ・近い別の英単語の可能性を必ず検討すること。特に、動詞の位置に名詞が入っている、案内や指示の文として意味が通らない、といった場合は誤認を強く疑う。
+- 医療・介護の現場で頻出する取り違え: "weight" と "wait"、"right" と "light"、"hear" と "here"、"week" と "weak" は、音ではなく文脈で判断する。例: "Can you weight over there?" は待つ場面の発話なので「あちらでお待ちいただけますか」と訳す。
+- ただし、原文がそのまま自然に意味の通る場合は修復しない。数値・単位・固有名詞は従来どおり保持する。
+- リハビリ用語の固定: 「拘縮」は英語で "contracture / contractures" と訳し、"stiffness" などへの言い換えはしない（原文が別の語の場合は除く）。`,
+
     buildUserDictionarySection: function(dictionary) {
         if (!Array.isArray(dictionary) || dictionary.length === 0) {
             return '';
@@ -78,6 +88,9 @@ ${lines.join('\n')}`;
         if (dictionarySection) {
             sections.push(dictionarySection);
         }
+
+        // 追加手当ては評価時と同じく末尾に置く（辞書セクションより後）
+        sections.push(this.englishAsrReinforcementSection);
 
         return sections.join('\n\n');
     },
