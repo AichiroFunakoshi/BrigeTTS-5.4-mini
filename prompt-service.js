@@ -89,8 +89,11 @@ ${lines.join('\n')}`;
             sections.push(dictionarySection);
         }
 
-        // 追加手当ては評価時と同じく末尾に置く（辞書セクションより後）
-        sections.push(this.englishAsrReinforcementSection);
+        // 追加手当ては評価時と同じく末尾に置く（辞書セクションより後）。
+        // Luna専用のため、他モデルを評価するときは includeAsrReinforcement: false で外せる
+        if (opts.includeAsrReinforcement !== false) {
+            sections.push(this.englishAsrReinforcementSection);
+        }
 
         return sections.join('\n\n');
     },

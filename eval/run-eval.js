@@ -30,6 +30,9 @@ const PromptService = global.window.PromptService;
 
 const ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 const DEFAULT_MODEL = 'gpt-5.6-luna';
+// プロンプトの追加手当て（englishAsrReinforcementSection）はこのモデル専用。
+// 他モデルを評価するときは手当てを外し、そのモデルの素の構成で測る
+const REINFORCEMENT_MODEL = 'gpt-5.6-luna';
 const CONCURRENCY = 4;
 
 function parseArgs(argv) {
@@ -81,7 +84,8 @@ function judge(testCase, output) {
 async function translate(testCase, apiKey, model) {
     const systemPrompt = PromptService.getTranslationSystemPrompt({
         domain: testCase.domain === 'daily' ? 'daily' : 'medical',
-        dictionary: testCase.dictionary || []
+        dictionary: testCase.dictionary || [],
+        includeAsrReinforcement: model === REINFORCEMENT_MODEL
     });
     const label = testCase.lang === 'ja' ? '日本語' : '英語';
     const target = testCase.lang === 'ja' ? '英語' : '日本語';
@@ -120,13 +124,17 @@ async function main() {
     if (args.limit) cases = cases.slice(0, args.limit);
 
     console.log(`評価ケース: ${cases.length}件 / モデル: ${args.model}`);
+    if (args.model !== REINFORCEMENT_MODEL) {
+        console.log(`注意: 追加手当ては ${REINFORCEMENT_MODEL} 専用のため、このモデルでは無効化して評価します`);
+    }
 
     if (args.dryRun) {
         // 構成検証のみ: プロンプト生成と判定ロジックを通す
         cases.forEach((c) => {
             const prompt = PromptService.getTranslationSystemPrompt({
                 domain: c.domain === 'daily' ? 'daily' : 'medical',
-                dictionary: c.dictionary || []
+                dictionary: c.dictionary || [],
+                includeAsrReinforcement: args.model === REINFORCEMENT_MODEL
             });
             if (!prompt || prompt.length < 100) throw new Error(`プロンプト生成失敗: ${c.id}`);
             judge(c, 'dummy output');

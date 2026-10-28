@@ -8,7 +8,7 @@
             "critical": true,
             "context": { "source": "田中さんが来ました。", "translation": "Mr. Tanaka has arrived." },
             "source": "彼は薬を持っています。",
-            "mustInclude": [["he has", "he is", "he's", "he brought"]],
+            "mustInclude": [["he has", "he is", "he's", "he brought", "tanaka has"]],
             "mustNotInclude": ["she "]
         },
         {
