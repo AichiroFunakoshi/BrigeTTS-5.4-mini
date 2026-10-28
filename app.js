@@ -1525,9 +1525,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ---- API使用量の概算（F15: 使用量の可視化） ----
-    const MINI_PRICE_IN = 0.75 / 1e6;       // USD/トークン（gpt-5.4-mini 非キャッシュ入力）
-    const MINI_PRICE_CACHED = 0.075 / 1e6;  // 同キャッシュ済み入力
-    const MINI_PRICE_OUT = 4.50 / 1e6;      // 同出力
+    const MINI_PRICE_IN = 0.20 / 1e6;       // USD/トークン（gpt-5.6-luna 非キャッシュ入力）
+    const MINI_PRICE_CACHED = 0.02 / 1e6;   // 同キャッシュ済み入力
+    const MINI_PRICE_OUT = 1.20 / 1e6;      // 同出力
     let usageTotals = AppSettingsStorage.getUsageTotals();
 
     function updateUsageUI() {
@@ -2446,7 +2446,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 10000);
     }
 
-    // OpenAI API（gpt-5.4-mini固定スナップショット）を使用してテキストを翻訳
+    // OpenAI API（gpt-5.6-luna）を使用してテキストを翻訳
     async function translateText(text) {
         // 翻訳処理の実行条件をチェック
         if (!text || !text.trim()) {

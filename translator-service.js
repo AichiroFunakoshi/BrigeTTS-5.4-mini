@@ -1,7 +1,7 @@
 // OpenAI翻訳APIとの通信とストリーミング解析
 const TranslatorService = {
     endpoint: 'https://api.openai.com/v1/chat/completions',
-    model: 'gpt-5.4-mini-2026-03-17',
+    model: 'gpt-5.6-luna',
 
     getSourceLanguageLabel: function(sourceLanguage) {
         return sourceLanguage === 'ja' ? '日本語' : '英語';
