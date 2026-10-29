@@ -2,7 +2,7 @@
 
 ![BridgeTTS](images/icons/ios-appicon-1024.png)
 
-日本語と英語のリアルタイム音声翻訳アプリです。音声認識で文字起こしし、OpenAI API（固定スナップショット `gpt-5.4-mini-2026-03-17`）で翻訳、Web Speech APIで音声読み上げ（TTS）します。**PWA（ブラウザ）** と **iOSネイティブアプリ（AltStore配布）** の2形態で動作します。
+日本語と英語のリアルタイム音声翻訳アプリです。音声認識で文字起こしし、OpenAI API（`gpt-5.6-luna`）で翻訳、Web Speech APIで音声読み上げ（TTS）します。**PWA（ブラウザ）** と **iOSネイティブアプリ（AltStore配布）** の2形態で動作します。
 
 このリポジトリは既存の `Bridge-TTS-Codex-` を内容コピーして独立させたGPT-5.4 mini版です。元リポジトリ・既存配布アプリとは別のBundle ID、AltStore Source ID、製品名、IPA名を使用します。
 

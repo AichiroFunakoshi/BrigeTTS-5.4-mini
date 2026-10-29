@@ -16,7 +16,7 @@ class ReleaseIdentityTests(unittest.TestCase):
 
         self.assertIn("PRODUCT_BUNDLE_IDENTIFIER: com.a16.bridgetts.gpt54mini", project)
         self.assertIn("PRODUCT_NAME: BridgeTTS54Mini", project)
-        self.assertIn('MARKETING_VERSION: "2.9.5"', project)
+        self.assertIn('MARKETING_VERSION: "2.10.0"', project)
         self.assertIn('"identifier": "com.a16.bridgetts.gpt54mini.source"', altstore)
         self.assertIn('"bundleIdentifier": "com.a16.bridgetts.gpt54mini"', altstore)
         self.assertIn("BridgeTTS-5.4-mini-unsigned.ipa", workflow)
